@@ -3,7 +3,8 @@
 using namespace std;
 int main()
 {
-    cout << "Hello World!\n";
+    std::cout << "Hello World!\n";
+    std::cout << "jopa penic";
 }
 //прив
 
