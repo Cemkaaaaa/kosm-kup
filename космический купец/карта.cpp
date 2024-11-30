@@ -7,7 +7,8 @@ public:
 
     Point(int x = 0, int y = 0) : x(x), y(y) {}
 };
-
+//Map::movePoint(int dx, int dy){реализация}.cpp
+//class Map{void movePoint(int dx, int dy)}
 class Map {
 protected:
     int width, height;
