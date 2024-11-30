@@ -127,7 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="бiблiотiка_для_картi.cpp" />
     <ClCompile Include="космический купец.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="бiблiотiка_для_картi.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
