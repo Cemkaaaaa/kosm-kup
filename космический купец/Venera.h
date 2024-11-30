@@ -1,3 +1,5 @@
 #pragma once
 
-void map();
+class map;
+class hero;
+class unit;
