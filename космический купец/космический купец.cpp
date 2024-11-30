@@ -1,5 +1,6 @@
 ﻿
 #include <iostream>
+#include "Venera.h"
 using namespace std;
 
 void clear()
