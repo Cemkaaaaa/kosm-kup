@@ -18,13 +18,13 @@
     <ClCompile Include="космический купец.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="бiблiотiка_для_картi.cpp">
+    <ClCompile Include="Venera.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="бiблiотiка_для_картi.h">
-      <Filter>Файлы заголовков</Filter>
+    <ClInclude Include="Venera.h">
+      <Filter>Исходные файлы</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
