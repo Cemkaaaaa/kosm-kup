@@ -1,4 +1,3 @@
-#include "бiблiотiка_для_картi.h"
 #include <iostream>
 #include <vector>
 using namespace std;
