@@ -127,9 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fight.cpp" />
     <ClCompile Include="Venera.cpp" />
     <ClCompile Include="карта.cpp" />
     <ClCompile Include="космический купец.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fight.h" />
+    <ClInclude Include="Jupiter.h" />
+    <ClInclude Include="Saturn.h" />
+    <ClInclude Include="Venera.h" />
+    <ClInclude Include="бiблiотiка для картi.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
