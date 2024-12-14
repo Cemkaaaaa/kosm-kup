@@ -140,8 +140,8 @@ public:
     }
 };
 
-int main()
+/*int main()
 {
     Map map;
     map.initMap();
-}
+}*/

@@ -1,5 +1,6 @@
 #pragma once
-class Fight
+#include "enemy.h"
+class Fight: public Enemy
 {
 
 public:

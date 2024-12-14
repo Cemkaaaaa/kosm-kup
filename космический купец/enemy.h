@@ -1,23 +1,40 @@
-#pragma once
+ï»¿#pragma once
+
+#pragma execution_character_set("utf-8")
 #include <iostream>
 
+using namespace std;
 class Enemy
 {
 protected:
 	std::string sprite;
 	std::string name;
+	
 	int health;
 	int damage;
 	int defense;
+
+
+
 	void setHealth(int health) {
 		this->health = health;
 	}
-public:
-	virtual void attack() = 0; // Àòàêà
-	virtual void defend() = 0; // Çàùèòà
-	virtual void printSprite() = 0;
 
-	/*Ãåòåğû*/
+	int hurt(int damage) {
+		int DeltaDamage = (getHealth() - damage * (1 / (rand() % defense)));
+		setHealth(DeltaDamage);
+		return DeltaDamage;
+	}
+
+public:
+
+	Enemy(int health, int damage, int defense, string name, string sprite) : health{ health }, damage{ damage }, defense{ defense }, name{ name }, sprite{ sprite } {}; //Ğ¤Ğ¸Ğ³Ğ° ĞºĞ¾Ğ½ÑÑ‚Ñ€ÑƒĞºÑ‚Ğ¾Ñ€
+
+	virtual void attack(/*Player* player*/) = 0; // ĞÑ‚Ğ°ĞºĞ°
+	virtual void defend() = 0; // Ğ—Ğ°Ñ‰Ğ¸Ñ‚Ğ°
+	virtual void printSprite() { cout << sprite; };
+
+	/*Ğ“ĞµÑ‚ĞµÑ€Ñ‹*/
 	int getHealth() const { return health; }
 	int getDamage() const { return damage; }
 	int getDefense() const { return defense; }
@@ -26,6 +43,18 @@ public:
 	std::string getSprite() const { return sprite; }
 	
 	
+
+
+
+};
+
+class Skeleton : public Enemy {
+private:
+	static const string sprite;
+public:
+	Skeleton(int health, int damage, int defense) : Enemy(health, damage, defense, "Skeleton", sprite) {}
+	void attack() override { cout << "HE ATTACKED FOR " << damage << "!" << endl; }
+	void defend() override { defense+= 1; }
 
 };
 
