@@ -36,6 +36,7 @@ public:
         nullChunks = { {0 ,0}, {0, 1}, {1, 0}, {1, 1} };
         decoC1 = {};
         decoC2 = {};
+        seed = 0;
     }
     bool isDecoration(int x, int y, int choice) const {
         switch (choice) {
@@ -73,7 +74,7 @@ public:
             for (int x = 0; x < 5; x++) {
                 addRandomDeco(x, y, 1);
                 int chance = rand() % 10;
-                if (chance <= 4) {
+                if (chance <= 1) {
                     addRandomDeco(x, y, 2);
                 }
             }
@@ -159,7 +160,8 @@ public:
             }
             cout << endl;
         }
-        cout << getSeed(chX, chY);
+        cout << getSeed(chX, chY) << " " << chX << ", " << chY << "\n";
+        print();
     }
 
     void movePlayer(int dx, int dy) {
@@ -208,8 +210,8 @@ public:
     }
     void initMap() {
         while (true) {
-            tick();
             srand(seed);
+            tick();
             this->printMap();
             char input = _getch();
             switch (input) {
@@ -229,9 +231,10 @@ public:
         }
     }
 };
-
-/*int main()
+/*
+int main()
 {
     Map map;
     map.initMap();
-}*/
+}
+*/
