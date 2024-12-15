@@ -141,17 +141,30 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Earth.cpp" />
+    <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fight.cpp" />
+    <ClCompile Include="Jupiter.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="Saturn.cpp" />
     <ClCompile Include="Venera.cpp" />
+    <ClCompile Include="weapon.cpp" />
     <ClCompile Include="карта.cpp" />
     <ClCompile Include="космический купец.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Earth.h" />
+    <ClInclude Include="enemy.h" />
     <ClInclude Include="fight.h" />
     <ClInclude Include="Jupiter.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="Saturn.h" />
+    <ClInclude Include="sprites.h" />
     <ClInclude Include="Venera.h" />
-    <ClInclude Include="бiблiотiка для картi.h" />
+    <ClInclude Include="weapon.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="космический купец.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
