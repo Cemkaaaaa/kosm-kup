@@ -2,7 +2,6 @@
 #include <vector>
 #include <conio.h>
 #include <windows.h>
-#include <map>
 using namespace std;
 
 void clear()
@@ -13,22 +12,30 @@ void clear()
 class Chunks {
 protected:
     int chX, chY;
+    int oldChX, oldChY;
 public:
-    Chunks(int chX = 0, int chY = 0) : chX(chX), chY(chY) {}
+    Chunks(int chX = 0, int chY = 0, int oldChX = 0, int oldChY = 0) : chX(chX), chY(chY), oldChX(oldChX), oldChY(oldChY) {}
 };
 
 class Player {
 protected:
     int x, y;
 public:
-    Player(int x = 0, int y = 0) : x(x), y(y) {}
+    Player(int x = 0, int y = 1) : x(x), y(y) {}
 };
 
 class Decorations {
+protected:
     vector<pair<int, int>> decoC1;
+    vector<pair<int, int>> decoC2;
+    vector<pair<int, pair<int, int>>> decoratedChunks;
+    vector<pair<int, int>> nullChunks;
+    int seed;
 public:
     Decorations() {
-        decoC1 = {  };
+        nullChunks = { {0 ,0}, {0, 1}, {1, 0}, {1, 1} };
+        decoC1 = {};
+        decoC2 = {};
     }
     bool isDecoration(int x, int y, int choice) const {
         switch (choice) {
@@ -39,14 +46,58 @@ public:
                 }
             }
             break;
+        case 2:
+            for (auto i : decoC2) {
+                if (i.first == y && i.second == x) {
+                    return true;
+                }
+            }
+            break;
         }
         return false;
     }
-    void addRandomDeco() {
-        srand(time(NULL));
-        int rngY = rand() % 35;
-        int rngX = rand() % 25;
-        decoC1.push_back({ rngX,rngY });
+    void addRandomDeco(int x = 0, int y = 0, int choice = 1) {
+        int rngY = rand() % 5;
+        int rngX = rand() % 5;
+        switch (choice) {
+        case 1:
+            decoC1.push_back({ rngX + x * 7, rngY + y * 5 });
+            break;
+        case 2:
+            decoC2.push_back({ rngX + x * 7, rngY + y * 5 });
+            break;
+        }
+    }
+    void fillChunk() {
+        for (int y = 0; y < 7; y++) {
+            for (int x = 0; x < 5; x++) {
+                addRandomDeco(x, y, 1);
+                int chance = rand() % 10;
+                if (chance <= 4) {
+                    addRandomDeco(x, y, 2);
+                }
+            }
+        }
+    }
+    void addSeedToChs(int seed, int x, int y) {
+        decoratedChunks.push_back({ seed, {x, y} });
+    }
+    int getSeed(int x, int y) {
+        for (auto i : decoratedChunks) {
+            if (i.second.first == x && i.second.second == y) {
+                return i.first;
+            }
+        }
+        return 0;
+    }
+    void print() {
+        for (auto i : decoratedChunks) {
+            cout << i.first << " " << i.second.first << " " << i.second.second << endl;
+        }
+    }
+    void clearChunk() {
+        decoC1 = {};
+        decoC2 = {};
     }
 };
 
@@ -65,41 +116,59 @@ public:
         return false;
     }
 };
-//Кинь генереацию автоматическую
 class Map : public Player, public Chunks, public Obstacles, public Decorations {
+    vector<Chunks> chunks;
 public:
     void printMap() {
         clear();
         for (int y = chY * 25; y < 25 + (chY * 25); ++y) {
             for (int x = chX * 35; x < 35 + (chX * 35); ++x) {
+                // человечек
                 if (x == this->x && y == this->y) {
                     cout << "[]";
+                }
+                else if (x == this->x && y - 1 == this->y) {
+                    cout << "TT";
+                }
+                else if (x == this->x && y + 1 == this->y) {
+                    cout << "()";
                 }
                 else if (isObstacle(x, y)) {
                     cout << "##";
                 }
-                else if (isDecoration(x, y, 1)) {
-                    cout << "#!";
-                }
-                else if (isDecoration(x - 1, y, 1)) {
-                    cout << "11";
-                }
-                else if (isDecoration(x - 2, y, 1)) {
-                    cout << "!#";
-                }
+                // Дерево
+                else if (isDecoration(x - chX * 35, y - chY * 25, 2)) { cout << "/#"; }
+                else if (isDecoration(x - 1 - chX * 35, y - chY * 25, 2)) { cout << "&#"; }
+                else if (isDecoration(x - 2 - chX * 35, y - chY * 25, 2)) { cout << "#\\"; }
+                else if (isDecoration(x - chX * 35, y - 1 - chY * 25, 2)) { cout << "#&"; }
+                else if (isDecoration(x - 1 - chX * 35, y - 1 - chY * 25, 2)) { cout << "##"; }
+                else if (isDecoration(x - 2 - chX * 35, y - 1 - chY * 25, 2)) { cout << "&#"; }
+                else if (isDecoration(x - chX * 35, y - 2 - chY * 25, 2)) { cout << "\\#"; }
+                else if (isDecoration(x - 1 - chX * 35, y - 2 - chY * 25, 2)) { cout << "#&"; }
+                else if (isDecoration(x - 2 - chX * 35, y - 2 - chY * 25, 2)) { cout << "#/"; }
+                else if (isDecoration(x - 1 - chX * 35, y - 3 - chY * 25, 2)) { cout << "||"; }
+                else if (isDecoration(x - 1 - chX * 35, y - 4 - chY * 25, 2)) { cout << "||"; }
+                // Трава
+                else if (isDecoration(x - chX * 35, y - chY * 25, 1)) { cout << ".,"; }
+                else if (isDecoration(x - 1 - chX * 35, y - chY * 25, 1)) { cout << "\"\""; }
+                else if (isDecoration(x - 2 - chX * 35, y - chY * 25, 1)) { cout << ",."; }
+                // Пустое 
                 else {
                     cout << ". ";
                 }
             }
             cout << endl;
         }
+        cout << getSeed(chX, chY);
     }
 
     void movePlayer(int dx, int dy) {
         int newX = x + dx;
         int newY = y + dy;
-
+        oldChX = chX;
+        oldChY = chY;
         if (isObstacle(newX, newY) == false) {
+
             x = newX;
             y = newY;
             if (newX < 0) {
@@ -116,10 +185,31 @@ public:
             }
         }
     }
-
+    void tick() {
+        if (oldChY != chY || oldChX != chX) {
+            clearChunk();
+            bool check = false;
+            for (auto i : nullChunks) {
+                if (chX == i.first && chY == i.second) {
+                    check = true;
+                }
+            }
+            if (!check) {
+                fillChunk();
+            }
+        }
+        if (getSeed(chX, chY) != 0) {
+            seed = getSeed(chX, chY);
+        }
+        else {
+            seed = rand();
+            addSeedToChs(seed, chX, chY);
+        }
+    }
     void initMap() {
-        addRandomDeco();
         while (true) {
+            tick();
+            srand(seed);
             this->printMap();
             char input = _getch();
             switch (input) {
