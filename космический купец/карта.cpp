@@ -2,6 +2,8 @@
 #include <vector>
 #include <conio.h>
 #include <windows.h>
+#include "player.h"
+#include "карта.h"
 using namespace std;
 
 void clear()
@@ -17,12 +19,7 @@ public:
     Chunks(int chX = 0, int chY = 0, int oldChX = 0, int oldChY = 0) : chX(chX), chY(chY), oldChX(oldChX), oldChY(oldChY) {}
 };
 
-class Player {
-protected:
-    int x, y;
-public:
-    Player(int x = 0, int y = 1) : x(x), y(y) {}
-};
+
 
 class Decorations {
 protected:

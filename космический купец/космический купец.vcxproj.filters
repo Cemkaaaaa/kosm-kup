@@ -42,6 +42,9 @@
     <ClCompile Include="player.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="Armor.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
     <ClCompile Include="weapon.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -72,6 +75,15 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="sprites.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="Armor.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="карта.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
