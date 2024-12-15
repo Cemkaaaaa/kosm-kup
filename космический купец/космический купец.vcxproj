@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Armor.cpp" />
     <ClCompile Include="Earth.cpp" />
     <ClCompile Include="enemy.cpp" />
     <ClCompile Include="fight.cpp" />
@@ -153,11 +154,13 @@
     <ClCompile Include="космический купец.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Armor.h" />
     <ClInclude Include="Earth.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="fight.h" />
     <ClInclude Include="Jupiter.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Saturn.h" />
     <ClInclude Include="sprites.h" />
     <ClInclude Include="Venera.h" />
