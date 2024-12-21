@@ -29,7 +29,7 @@ protected:
 public:
 
 	Enemy(int health, int damage, int defense, string name, string sprite) : health{ health }, damage{ damage }, defense{ defense }, name{ name }, sprite{ sprite } {}; //Фига конструктор
-
+	Enemy(Enemy& enemy) : Enemy(enemy.health, enemy.damage, enemy.defense, enemy.name, enemy.sprite) {}
 	virtual void attack(/*Player* player*/) = 0; // Атака
 	virtual void defend() = 0; // Защита
 	virtual void printSprite() { cout << sprite; };

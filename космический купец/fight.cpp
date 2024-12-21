@@ -1,7 +1,8 @@
 #include "fight.h"
 #include <iostream>
 using namespace std;
-void Fight::fight()
-{
 
+int main() {
+	Fight f;
+	f.fight();
 }

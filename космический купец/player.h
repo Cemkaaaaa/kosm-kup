@@ -12,13 +12,16 @@ private:
 	int hp;
 	int defense;
 	int damage;
-	Weapon weapon; //Название Урон
-	Armor armor; //Название Защита
-	
+	Weapon weapon = Weapon(); //Название Урон
+	Armor armor = Armor(); //Название Защита
+
 	int x;
 	int y;
-	int chX; int chY;
+
 public:
+	Player() : name{ "NULL" }, hp{ 100 }, defense{ 1 }, damage{ 123 }, x{ 0 }, y{ 0 } {}
+	Player(std::string name, int hp, int defense, int damage) : name{ name }, hp{ hp }, defense{ defense }, damage{ damage }, x{ 0 }, y{ 0 }  {}
+	
 	//Гетеры
 	
 	std::string getName() { return name; }
