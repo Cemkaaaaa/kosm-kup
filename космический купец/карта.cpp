@@ -2,8 +2,6 @@
 #include <vector>
 #include <conio.h>
 #include <windows.h>
-#include "player.h"
-#include "карта.h"
 using namespace std;
 
 void clear()
@@ -19,7 +17,12 @@ public:
     Chunks(int chX = 0, int chY = 0, int oldChX = 0, int oldChY = 0) : chX(chX), chY(chY), oldChX(oldChX), oldChY(oldChY) {}
 };
 
-
+class Player {
+protected:
+    int x, y;
+public:
+    Player(int x = 0, int y = 1) : x(x), y(y) {}
+};
 
 class Decorations {
 protected:
@@ -33,7 +36,6 @@ public:
         nullChunks = { {0 ,0}, {0, 1}, {1, 0}, {1, 1} };
         decoC1 = {};
         decoC2 = {};
-        seed = 0;
     }
     bool isDecoration(int x, int y, int choice) const {
         switch (choice) {
@@ -71,7 +73,7 @@ public:
             for (int x = 0; x < 5; x++) {
                 addRandomDeco(x, y, 1);
                 int chance = rand() % 10;
-                if (chance <= 1) {
+                if (chance <= 4) {
                     addRandomDeco(x, y, 2);
                 }
             }
@@ -157,8 +159,7 @@ public:
             }
             cout << endl;
         }
-        cout << getSeed(chX, chY) << " " << chX << ", " << chY << "\n";
-        print();
+        cout << getSeed(chX, chY);
     }
 
     void movePlayer(int dx, int dy) {
@@ -207,8 +208,8 @@ public:
     }
     void initMap() {
         while (true) {
-            srand(seed);
             tick();
+            srand(seed);
             this->printMap();
             char input = _getch();
             switch (input) {
@@ -228,10 +229,9 @@ public:
         }
     }
 };
-/*
-int main()
+
+/*int main()
 {
     Map map;
     map.initMap();
-}
-*/
+}*/

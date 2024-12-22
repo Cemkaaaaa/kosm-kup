@@ -5,7 +5,73 @@
 using namespace std;
 
 /*
+class Point {
+public:
+    int x, y;
 
+    Point(int x = 0, int y = 0) : x(x), y(y) {}
+};
+
+class Map {
+protected:
+    int width, height;
+    Point point;
+    vector<vector<bool>> obstacles;
+
+    // Конструктор теперь инициализирует препятствия внутри класса
+    void initializeObstacles() {
+        // ЗДЕСЬ ПИШИТЕ КООРДИНАТЫ ПРЕПЯТСТВИЙ ПО ТИПУ {69, 420}, ГДЕ 69 = X СЛЕВА НА ПРАВО, А 420 = Y СВЕРХУ ВНИЗ.
+        vector<pair<int, int>> initObstacles = {
+            {}
+        };
+
+        for (const auto& o : initObstacles) {
+            addObstacle(o.first, o.second);
+        }
+    }
+
+    void addObstacle(int x, int y) {
+        if (x >= 0 && x < width && y >= 0 && y < height) {
+            obstacles[y][x] = true;
+        }
+    }
+
+public:
+    Map(int w = 25, int h = 35)
+        : width(w), height(h), point(0, 0) {
+        obstacles.resize(height, vector<bool>(width, false));
+        initializeObstacles(); // Инициализация препятствий в конструкторе
+    }
+
+    virtual ~Map() {}
+
+    void movePoint(int dx, int dy) {
+        int newX = point.x + dx;
+        int newY = point.y + dy;
+
+        if (newX >= 0 && newX < width && newY >= 0 && newY < height && !obstacles[newY][newX]) {
+            point.x = newX;
+            point.y = newY;
+        }
+    }
+
+    void printMap() {
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                if (x == point.x && y == point.y) {
+                    std::cout << "P "; // P for Point
+                }
+                else if (obstacles[y][x]) {
+                    std::cout << "# "; // # for obstacle
+                }
+                else {
+                    std::cout << ". "; // . for empty cell
+                }
+            }
+            std::cout << std::endl;
+        }
+    }
+};
 
 
 
