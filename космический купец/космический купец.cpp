@@ -5,6 +5,7 @@
 using namespace std;
 
 
+
 /**int main() {
 	Fight f(Player(), Enemy());
 	cout << Fight::Interface;
