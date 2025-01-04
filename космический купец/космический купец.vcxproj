@@ -165,7 +165,6 @@
     <ClInclude Include="sprites.h" />
     <ClInclude Include="Venera.h" />
     <ClInclude Include="weapon.h" />
-    <ClInclude Include="карта.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="космический купец.rc" />

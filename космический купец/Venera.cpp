@@ -7,11 +7,72 @@ using namespace std;
 const int x = 35;
 const int y = 25;
 
-/*
+/*void clear()
+{
+    std::cout << "\033[2J";     // очистка экрана
+    std::cout << "\033[0;0f";   // перемещение курсора в верхний левый угол
+}
+
+
+class Point {
+public:
+    int x, y;
+
+    Point(int x = 0, int y = 17) : x(x), y(y) {}
+};
+
+class map {
+protected:
+    Point hero;
+    char map[x][y];
+public:
+    void Print() {
+        for (int i = 0; i < y; i++) { 
+            for (int j = 0; j < x; j ++) {
+                std::cout << map[i][j];
+            }
+            std::cout << std::endl;
+        }
+    }
+};
+class Venera : map {
+public:
+    void InitObject(){//создаем обьекты на карте
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
+                map[i][j] = '.';
+            }
+        }
+        map[hero.x][hero.y] = '*';
+
+    }
+    void Printmap() {
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
+                std::cout << map[i][j];
+            }
+            std::cout << "/n";
+        }
+    }
+
+    void MoveHero() {
+
+    }
+};
 
 
 
-
+class unit {
+protected:
+    int x, y;
+    std::string name;
+public:
+    unit(std::string name, int x,int y){
+        this->name = name;
+        this->x = x;
+        this->y = y;
+    }
+};
 class sec :unit {
 public:
     void Print_Text()
