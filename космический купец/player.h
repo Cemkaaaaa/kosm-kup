@@ -19,7 +19,7 @@ private:
 	int y;
 
 public:
-	Player() : name{ "NULL" }, hp{ 100 }, defense{ 1 }, damage{ 123 }, x{ 0 }, y{ 0 } {}
+	Player() : name{ "NULL" }, hp{ 100 }, defense{ 1 }, damage{ 1 }, x{ 0 }, y{ 0 } {}
 	Player(std::string name, int hp, int defense, int damage) : name{ name }, hp{ hp }, defense{ defense }, damage{ damage }, x{ 0 }, y{ 0 }  {}
 	
 	//Гетеры
@@ -30,8 +30,8 @@ public:
 	int getDefense() { return defense; }
 	int getDamage() { return damage; }
 
-	Weapon getWeapon()  { return weapon; } 
-	Armor getArmor() { return armor; }
+	Weapon getWeapon()  { return this->weapon; } 
+	Armor getArmor() { return this->armor; }
 
 	int getX() { return x; }
 	int getY() { return y; }
