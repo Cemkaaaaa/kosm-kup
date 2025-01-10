@@ -4,5 +4,7 @@ using namespace std;
 
 int main() {
 	Fight f;
-	f.fight();
+	while (true) {
+		f.coutAttack();
+	}
 }
