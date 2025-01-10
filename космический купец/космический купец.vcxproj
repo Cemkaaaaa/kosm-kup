@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Ability.cpp" />
+    <ClCompile Include="ansiUtils.cpp" />
     <ClCompile Include="Armor.cpp" />
     <ClCompile Include="Earth.cpp" />
     <ClCompile Include="enemy.cpp" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ability.h" />
+    <ClInclude Include="ansiUtils.h" />
     <ClInclude Include="Armor.h" />
     <ClInclude Include="Earth.h" />
     <ClInclude Include="enemy.h" />
