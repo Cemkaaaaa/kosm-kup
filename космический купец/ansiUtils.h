@@ -16,4 +16,6 @@ namespace ansi {
     void setBGColor(int code);
     //Установка Заднего фона (RGB)
     void setBGColor(int red, int green, int blue);
+    //Установка текста в заданной позиции со сжатием
+    void putText(int x, int y, int left_edge, int right_edge, string text);
 } // Namespace ansi
