@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-int main1() {
+int main() {
 	Fight f;
 	while (true) {
 		f.fight();
