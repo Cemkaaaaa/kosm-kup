@@ -5,12 +5,10 @@
 #include "stdlib.h"
 #include <conio.h>
 #include <windows.h>
+#include "ansiUtils.h" // Для clear() | LT_leonid
 using namespace std;
+using namespace ansi;  // там clear() валяется
 
-void clear()
-{
-    system("cls");
-}
 
 class Chunks {
 protected:

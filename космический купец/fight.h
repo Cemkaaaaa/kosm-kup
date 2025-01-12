@@ -104,13 +104,36 @@ public:
 		cout << "\033[24;75f" << "Health: " << "1000";
 		cout << "\033[25;75f" << "\033[48;2;0;255;0m" << string(1000 / 100, ' ') << "\033[0m";
 	}
-	void coutAttack() {
+	void coutAttack(Player p) {
+		int page = p.getAbilities().size()/4;
 		cout << "\033[19;0f";
 		cout << Attack;
-
-		cout << "\033[22;28f" << "Pizda"; cout << "\033[22;52f" << "Pizda";
-		cout << "\033[27;28f" << "Pizda"; cout << "\033[27;52f" << "Pizda";
+		for(int i = 0; i < p.getAbilities().size(); i++){
+		for (int i = 0; i < (123); i++) {
 			
-	}
+			switch (i)
+			{
+			case 0:
+				cout << "\033[22;28f" << p.getAbility(i).getName(); 
+				break;
+			case 1:
+				cout << "\033[27;28f" << p.getAbility(i).getName();
+				break;
+			case 2:		
+				cout << "\033[22;52f" << p.getAbility(i).getName();
+				break;
+			case 3:
+				cout << "\033[27;52f" << p.getAbility(i).getName();
+				break;
+			default:
+				break;
+			}
+
+		}
+		cout << "\033[0;0f";
+
+
+	
+}
 
 };

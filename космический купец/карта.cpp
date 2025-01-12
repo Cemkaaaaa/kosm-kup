@@ -283,8 +283,9 @@ public:
     }
 };
 
-int main()
+int m1ain()
 {
     Map map;
     map.initMap();
+    return 0;
 }

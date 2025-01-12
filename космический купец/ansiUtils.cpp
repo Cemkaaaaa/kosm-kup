@@ -3,16 +3,43 @@
 //Позиция Курсора
 struct COORD {
     int x, y;
-    COORD(int x, int y) : x{ x },. y{ y };
+    COORD(int x, int y) : x{ x }, y{ y } {};
+    COORD(string cords) {
+        bool flag = true;
+        string buffer;
+        for (auto i : cords) {
+            if (flag) {
+                if (i == ';') {
+                    x = stoi(buffer);
+                    buffer.clear();
+                    flag = false;
+                }
+                else {
+                    buffer += i;
+                }
+            }
+            else {
+                if(i == 'R') {
+                    y = stoi(buffer);
+                    buffer.clear();
+                    break;
+                }
+                else {
+                    buffer += i;
+                }
+
+            }
+        }
+    }
 };
 string ansi::getCursorPos()
 {
     cout << "\033[6n";
     string pos;
     char get = ' ';
-    while (true) {
+    while (get != 'R') {
         get = _getch();
-        if (get == 'R') { break; }
+        
         if (get == ';') { pos += get; }
         try {
 
@@ -28,7 +55,7 @@ string ansi::getCursorPos()
 //Очистка экрана
 void ansi::clear()
 {
-    system("\033[2j\033[0;0f    ");
+    system("cls");
 }
 //Установка цвета Символа (Код UNIX)
 void ansi::setFGColor(int code)
@@ -50,13 +77,15 @@ void ansi::setBGColor(int red, int green, int blue)
     cout << "\033[48;2;" << red << ";" << green << ";" << blue << ";" << "m";
 }
 //Установка текста в заданной позиции со сжатием
+
 void ansi::putText(COORD start_pos = COORD(0,0), COORD left_edge, int right_edge, string text)
 {
+    cout << "\033[" << start_pos.y << ";" << start_pos.x << "f";
     string buffer;
     int column;
-    for (auto i = 0; i > text.size(); i++) {
-        if (i % right_edge.x == 0) {
-            buffer += ("\033[" + to_string(y) + ";" + to_string(x) + "f");
+    for (int i = 0; i > text.size(); i++) {
+        if (i % right_edge == 0) {
+            buffer += ("\033[" + to_string() + ";" + to_string(x) + "f");
         }
         buffer += text[i];  
     }
