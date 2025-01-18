@@ -4,9 +4,12 @@
 #include "player.h"
 #include <conio.h>
 using namespace std;
-
+enum arrow{
+	leftdown, leftup,rightup,rightdown
+};
 class Fight{
 private:
+	Player *p;
 	enum class state {attack, choice, backpack, escape};
 	string Interface = R"(
 |---------------------|------------------------------------------------|-----------------------------------------------|
@@ -42,7 +45,7 @@ private:
 |                     |  |                  |    |                  |  |                                               |
 |                     |  |------------------|    |------------------|  |                                               |
 |---------------------|------------------------------------------------|-----------------------------------------------|)";
-	bool cX = 0; bool cY = 0;
+	
 public:
 	Fight() {};
 
@@ -53,28 +56,8 @@ public:
 		while (true)
 		{
 			
-			coutInterface(x, y);
-			switch (_getch())
-			{
-			case 77/*->*/:
-				cX = true;
-				y = 51;
-				break;
-			case 75/*<-*/:
-				y = 27;
-				cX = false;
-				break;
-			case 72/*/\*/:
-				cY = true;
-				x = 22;
-				break;
-			case 80/*\/*/:
-				cY = false;
-				x = 27;
-				break;
-			default:
-				break;
-			}
+			upravleniye(coutInterface);
+			
 
 			
 		}
@@ -84,14 +67,11 @@ public:
 		cout << Notification;
 		cout << "\033[23;27f" << notification;
 	}
-	void coutInterface(int x, int y) {
+	void coutInterface() {
 		
 		cout << "\033[19;0f";
 		cout << Interface;
-		if (cX && cY) { cout << "\033[27;51f>"; } //левый низ
-		else if(cX && !cY){ cout << "\033[22;51f>"; } // 
-		else if (!cX && cY) { cout << "\033[27;27f>"; }
-		else { cout << "\033[22;27f>";  }
+		
 
 		
 		cout << "\033[23;2f" << "Player";
@@ -104,11 +84,13 @@ public:
 		cout << "\033[25;75f" << "\033[48;2;0;255;0m" << string(1000 / 100, ' ') << "\033[0m";
 	}
 	void coutAttack(Player p) {
-		int page = p.getAbilities().size() / 4;
+		
+		int temp;
 		cout << "\033[19;0f";
 		cout << Attack;
 		for (int i = 0; i < p.getAbilities().size(); i++) {
-			for (int i = 0; i < (123); i++) {
+			
+			for (int i = 0; i < (4); i++) {
 
 				switch (i)
 				{
@@ -127,6 +109,7 @@ public:
 				default:
 					break;
 				}
+			
 
 			}
 			cout << "\033[0;0f";
@@ -134,6 +117,42 @@ public:
 
 
 		}
+		
 	}
-
+	int inline upravleniye( void (*Interface)()) {
+		Interface();
+		bool cX = 0; bool cY = 0;
+		if (cX && cY) { cout << "\033[27;51f>"; } //левый низ
+		else if (cX && !cY) { cout << "\033[22;51f>"; } // 
+		else if (!cX && cY) { cout << "\033[27;27f>"; }
+		else { cout << "\033[22;27f>"; }
+		switch (_getch())
+		{
+		case 77/*->*/:
+			
+			cX = true;
+			
+			break;
+		case 75/*<-*/:
+			
+			cX = false;
+			break;
+		case 72/*/\*/:
+			cY = true;
+			
+			break;
+		case 80/*\/*/:
+			cY = false;
+			
+			break;
+		case '\n':
+			if (cX && cY) { return arrow::rightup; } //левый низ
+			else if (cX && !cY) { return arrow::rightdown; } // 
+			else if (!cX && cY) { return arrow::leftup; }
+			else { return arrow::leftdown; }
+		default:
+			break;
+		}
+		
+	}
 };

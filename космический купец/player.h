@@ -18,7 +18,7 @@ private:
 	Weapon weapon = Weapon(); 
 	Armor armor = Armor(); 
 	vector<Ability> ability;
-
+	vector<Ability> UsesAbilty;
 protected:
 	int x;
 	int y;
@@ -46,6 +46,12 @@ public:
 			cout << "Error!"; return Ability();
 		}
 		else { return ability[index]; }
+	}
+
+	int hurt(int damage) {
+		int DeltaDamage = (getHP() - damage * (1 / (rand() % defense)));
+		this->hp = DeltaDamage;
+		return DeltaDamage;
 	}
 	/*Вектор*/
 	vector<Ability> getAbilities() { return ability; }
