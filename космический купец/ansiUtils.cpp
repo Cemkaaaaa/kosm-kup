@@ -74,26 +74,37 @@ void ansi::setBGColor(int red, int green, int blue)
 void ansi::putText(COORD left_edge = ansi::getCursorPos(), int right_edge = 0, string text = "")
 {
     string buffer;
-    
+
     int column = 0;
-    
+    bool flag = false;
     for (int i = 0; i < text.size(); i++) {
-        if (i % right_edge == 0) {
-            column++;
-            buffer += ("\033[" + to_string(left_edge.y+column) + ";" + to_string(left_edge.x) + "f");
-        }
-        else if (text[i] == '\\' && text[i + 1] == 'n') {
-            column++;
-            buffer += ("\033[" + to_string(left_edge.y + column) + ";" + to_string(left_edge.x) + "f");
+        if (!flag) {
+            if (i % right_edge == 0) {
+                column++;
+                buffer += ("\033[" + to_string(left_edge.y + column) + ";" + to_string(left_edge.x) + "f");
+            }
+            else if (text[i] == '\\') flag = true;
+            else {
+                buffer += text[i];
+            }
         }
         else {
-            buffer += text[i];
+            if (text[i] == 'n') {
+                column++;
+                buffer += ("\033[" + to_string(left_edge.y + column) + ";" + to_string(left_edge.x) + "f");
+                flag = false;
+            }
+            else {
+                flag = false;
+                buffer += text[i - 1] + text[i];
+            }
+            
         }
     }
     cout << buffer;
 }
 int main() {
 
-    ansi::putText(ansi::COORD(4,1), 20, "12312323\n22222");
+    ansi::putText(ansi::COORD(4,1), 20, "11111111111111111\n1111111111111111111111111111111111111111111111111111111111111111111111111111111111");
     return 0;
 }

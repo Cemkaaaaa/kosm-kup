@@ -27,7 +27,7 @@
 
 		Enemy(int health, int damage, int defense, string name, string sprite) : health{ health }, damage{ damage }, defense{ defense }, name{ name }, sprite{ sprite } {}; //Фига конструктор
 		Enemy(Enemy& enemy) : Enemy(enemy.health, enemy.damage, enemy.defense, enemy.name, enemy.sprite) {}
-		virtual void attack(Player* player) = 0; // Атака
+		virtual int attack(Player* player) = 0; // Атака
 		virtual void defend() = 0; // Защита
 		virtual void printSprite() { cout << sprite; };
 
@@ -49,13 +49,13 @@
 
 	};
 
-	class Skeleton : public Enemy {
+	/*class Skeleton : public Enemy {
 	private:
 		static const string sprite;
 	public:
 		Skeleton(int health, int damage, int defense) : Enemy(health, damage, defense, "Skeleton", sprite) {}
-		int attack(Player& player) override { player.player.getHP() }
+		int attack(Player& player) override { player.getHP(); return 0; }
 		void defend() override { defense+= 1; }
 
 	};
-
+	*/

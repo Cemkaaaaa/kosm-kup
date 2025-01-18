@@ -56,7 +56,7 @@ public:
 		while (true)
 		{
 			
-			upravleniye(coutInterface);
+			//upravleniye(&coutInterface);
 			
 
 			

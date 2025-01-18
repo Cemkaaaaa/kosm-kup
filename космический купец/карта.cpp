@@ -2,12 +2,10 @@
 #include <vector>
 #include <conio.h>
 #include <windows.h>
+#include "ansiUtils.h"
+using namespace ansi;
 using namespace std;
 
-void clear()
-{
-    system("cls");
-}
 
 class Chunks {
 protected:
