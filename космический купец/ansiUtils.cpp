@@ -1,56 +1,49 @@
 #include "ansiUtils.h"
+#include <iostream>
 #include <string>
 //Позиция Курсора
-struct COORD {
-    int x, y;
-    COORD(int x, int y) : x{ x }, y{ y } {};
-    COORD(string cords) {
-        bool flag = true;
-        string buffer;
-        for (auto i : cords) {
-            if (flag) {
-                if (i == ';') {
-                    x = stoi(buffer);
-                    buffer.clear();
-                    flag = false;
-                }
-                else {
-                    buffer += i;
-                }
-            }
-            else {
-                if(i == 'R') {
-                    y = stoi(buffer);
-                    buffer.clear();
-                    break;
-                }
-                else {
-                    buffer += i;
-                }
 
-            }
-        }
-    }
-};
-string ansi::getCursorPos()
+ansi::COORD ansi::getCursorPos()
 {
+
     cout << "\033[6n";
     string pos;
+    COORD poss;
     char get = ' ';
+    bool flag = false;
     while (get != 'R') {
         get = _getch();
         
-        if (get == ';') { pos += get; }
-        try {
-
-            if (isalnum(get)) { pos += get; }
-
+        if (get == ';')
+        {
+            poss.y = stoi(pos);
+            flag = true; 
+            pos.clear();
         }
-        catch (...) {
-            continue;
+        if (flag) {
+            try {
+
+                if (isalnum(get)) { pos += get; }
+
+            }
+            catch (...) {
+                continue;
+            }
         }
+        else {
+            try {
+
+                if (isalnum(get)) { pos += get; }
+
+            }
+            catch (...) {
+                continue;
+            }
+        }
+        
     }
-    return pos;
+    poss.x = stoi(pos);
+    return poss;
 }
 //Очистка экрана
 void ansi::clear()
@@ -78,16 +71,29 @@ void ansi::setBGColor(int red, int green, int blue)
 }
 //Установка текста в заданной позиции со сжатием
 
-void ansi::putText(COORD start_pos = COORD(0,0), COORD left_edge, int right_edge, string text)
+void ansi::putText(COORD left_edge = ansi::getCursorPos(), int right_edge = 0, string text = "")
 {
-    cout << "\033[" << start_pos.y << ";" << start_pos.x << "f";
     string buffer;
-    int column;
-    for (int i = 0; i > text.size(); i++) {
+    
+    int column = 0;
+    
+    for (int i = 0; i < text.size(); i++) {
         if (i % right_edge == 0) {
-            buffer += ("\033[" + to_string() + ";" + to_string(x) + "f");
+            column++;
+            buffer += ("\033[" + to_string(left_edge.y+column) + ";" + to_string(left_edge.x) + "f");
         }
-        buffer += text[i];  
+        else if (text[i] == '\\' && text[i + 1] == 'n') {
+            column++;
+            buffer += ("\033[" + to_string(left_edge.y + column) + ";" + to_string(left_edge.x) + "f");
+        }
+        else {
+            buffer += text[i];
+        }
     }
+    cout << buffer;
+}
+int main() {
 
+    ansi::putText(ansi::COORD(4,1), 20, "12312323\n22222");
+    return 0;
 }
