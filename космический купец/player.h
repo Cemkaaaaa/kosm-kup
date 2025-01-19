@@ -18,15 +18,15 @@ private:
 	Weapon weapon = Weapon(); 
 	Armor armor = Armor(); 
 	vector<Ability> ability;
-	vector<Ability> UsesAbilty;
+
 protected:
 	int x;
 	int y;
 
 public:
-	Player() : name{ "NULL" }, hp{ 100 }, defense{ 1 }, damage{ 1 }, x{ 0 }, y{ 0 }, ability{Ability("Punch", "Обычный удра", 10),Ability("Pun2ch", "Обычный удра", 10) ,Ability("Punch11", "Обычный удра", 10) ,Ability("Punch34", "Обычный удра", 10) } { setlocale(LC_ALL, "Russian"); }
+	Player() : name{ "NULL" }, hp{ 100 }, defense{ 1 }, damage{ 1 }, x{ 0 }, y{ 0 }, ability{Ability("Punch", "Default Desc", 10),Ability("Punch x2", "Default Desc", 20) ,Ability("Punch x3", "Default Desc", 30) ,Ability("Punch34", "Default Desc", 10) } {  }
 	Player(std::string name, int hp, int defense, int damage, vector<Ability> ability) : name{ name }, hp{ hp }, defense{ defense }, damage{ damage }, x{ 0 }, y{ 0 }, ability { ability } {}
-
+	Player(const Player& player) { this->name = player.name; this->hp = player.hp; this->defense = player.defense; this->damage = player.damage; this->weapon = player.weapon; this->armor = player.armor; this->ability = player.ability; }
 	//Гетеры
 	
 	string getName()	{ return name; }
@@ -54,7 +54,7 @@ public:
 		return DeltaDamage;
 	}
 	/*Вектор*/
-	vector<Ability> getUsesAbility() { return this->UsesAbilty; }
+
 	vector<Ability> getAbilities() { return ability; }
 	
 };

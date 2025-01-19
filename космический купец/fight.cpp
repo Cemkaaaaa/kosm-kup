@@ -2,8 +2,8 @@
 #include "player.h"
 #include <iostream>
 #pragma execution_character_set("utf-8")
-int ma1in() {
-	Fight f;
+int main() {
+	Fight f{new Player()};
 	f.fight();
 	return 0;
 }
