@@ -103,8 +103,3 @@ void ansi::putText(COORD left_edge = ansi::getCursorPos(), int right_edge = 0, s
     }
     cout << buffer;
 }
-int main() {
-
-    ansi::putText(ansi::COORD(4,1), 20, "11111111111111111\n1111111111111111111111111111111111111111111111111111111111111111111111111111111111");
-    return 0;
-}
