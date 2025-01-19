@@ -282,6 +282,7 @@ public:
                 movePlayer(0, -1 * n);
                 break;
             }
+            if (rand() % 5 == 0) { f.fight(); }
         }
     }
     string getTile(int x, int y) {
