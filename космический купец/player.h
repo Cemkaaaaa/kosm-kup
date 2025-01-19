@@ -41,15 +41,17 @@ public:
 	int getX()			{ return x; }
 	int getY()			{ return y; }
 
-	Ability getAbility(int index) {
-		if (index < 0 && index > 4 && index < ability.size()) {
-			cout << "Error!"; return Ability();
+	Ability getAbility(int index) const {
+		if (index < 0 || index >= ability.size()) {
+
+			return Ability(); // Пустая способность
 		}
-		else { return ability[index]; }
+		return ability[index];
 	}
 
+
 	int hurt(int damage) {
-		int DeltaDamage = (getHP() - damage * (1 / (rand() % defense)));
+		int DeltaDamage = (getHP() - (damage -defense));
 		this->hp = DeltaDamage;
 		return DeltaDamage;
 	}

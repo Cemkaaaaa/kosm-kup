@@ -44,10 +44,11 @@ public:
 	std::string getName() const { return name; }
 	std::string getSprite() const { return sprite; }
 	int hurt(int damage) {
-		int DeltaDamage = (getHealth() - damage * (1 / (rand() % (defense + dopDefense)) ));
+		int temp = getHealth();
+		int DeltaDamage = (getHealth() - damage * (1 / ((defense > 0 ? defense : 0.1) + dopDefense)));
 		dopDefense > 0 ? dopDefense = 0 : true;
 		setHealth(DeltaDamage);
-		return DeltaDamage;
+		return temp - DeltaDamage;
 	}
 
 
@@ -60,6 +61,5 @@ private:
 	static const string sprite;
 public:
 	Skeleton(int health, int damage, int defense) : Enemy(health, damage, defense, "Skeleton", sprite) {}
-
 
 };
