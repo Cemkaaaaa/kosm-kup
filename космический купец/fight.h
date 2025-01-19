@@ -63,11 +63,12 @@ public:
 		int State = 0; 
 		function<void(Fight&)> fun;
 		fun = &Fight::coutInterface;
-
+		enemy = new Skeleton(rand() % 200, rand() % 30, rand() % 10);
 		while (true)
 		{
 			try {
 				if (enemy->getHealth() < 0) { coutNotification("You Win!"); Sleep(100);	break; }
+				if (p->getHP() < 0) { coutNotification("You Died!"); Sleep(100);	break; }
 				State = upravleniye(fun);
 				if (State == (int)state::attack) {
 					State = upravleniye(function<void(Fight&)>{&Fight::coutAttack});

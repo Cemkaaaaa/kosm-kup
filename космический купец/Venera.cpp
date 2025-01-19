@@ -3,13 +3,12 @@
 #include <conio.h>
 #include "player.h"
 #include "fight.h"
+#include "ansiUtils.h"
 #include <windows.h>
 using namespace std;
+using namespace ansi;
 
-void clear()
-{
-    system("cls");
-}
+
 void Print_Replica() {
     bool flag = false;
     while (flag != false)
@@ -518,7 +517,7 @@ public:
         return false;
     }
 };
-class Map : public Player, public Chunks, public Obstacles, public Decorations {
+class MapVenera : public Player, public Chunks, public Obstacles, public Decorations {
     vector<Chunks> chunks;
 public:
     void printMap() {
@@ -656,15 +655,9 @@ public:
                 this->movePlayer(0, -1);
                 break;
             }
-            if (rand() % 5 == 0) { f.fight(); }
+            if (rand() % 5 == 0) { clear(); f.fight(); }
         }
     }
 
 };
     
-
-
-void game() {
-    Map map;
-    map.initMap();
-}

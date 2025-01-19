@@ -1,6 +1,5 @@
 #pragma once
 
-void clear;
 class unit;
 class sec;
 class Vadim;
@@ -12,6 +11,6 @@ class Player;
 class NPC;
 class Decorations;
 class Obstacles;
-class Map;
+class MapVenera;
 class Barman;
-void game;
+
