@@ -1,6 +1,8 @@
 ﻿#include <iostream>
 #include <vector>
 #include <conio.h>
+#include "player.h"
+#include "fight.h"
 #include <windows.h>
 using namespace std;
 
@@ -385,12 +387,7 @@ public:
     Chunks(int chX = 0, int chY = 0, int oldChX = 0, int oldChY = 0) : chX(chX), chY(chY), oldChX(oldChX), oldChY(oldChY) {}
 };
 
-class Player {
-protected:
-    int x, y;
-public:
-    Player(int x = 0, int y = 1) : x(x), y(y) {}
-};
+
 
 class NPC {
 protected:
@@ -636,6 +633,10 @@ public:
         }
     }
     void initMap() {
+        
+        
+        Player p;
+        Fight f{ &p };
         while (true) {
             tick();
             srand(seed);
@@ -655,6 +656,7 @@ public:
                 this->movePlayer(0, -1);
                 break;
             }
+            if (rand() % 5 == 0) { f.fight(); }
         }
     }
 
