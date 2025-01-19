@@ -4,10 +4,12 @@
 #include <utility> 
 #include "stdlib.h"
 #include <conio.h>
+#include "player.h"
 #include <windows.h>
-#include "ansiUtils.h" // Для clear() | LT_leonid
+//#include "ansiUtils.h" // Для clear() | LT_leonid
 using namespace std;
-using namespace ansi;  // там clear() валяется
+//using namespace ansi;  // там clear() валяется
+void clear() { system("cls"); }
 
 
 class Chunks {
@@ -18,12 +20,7 @@ public:
     Chunks(int chX = 0, int chY = 0, int oldChX = 0, int oldChY = 0) : chX(chX), chY(chY), oldChX(oldChX), oldChY(oldChY) {}
 };
 
-class Player {
-protected:
-    int x, y;
-public:
-    Player(int x = 0, int y = 1) : x(x), y(y) {}
-};
+
 
 class Decorations {
 protected:
@@ -180,7 +177,12 @@ public:
     vector<Chunks> chunks;
 public:
     string buffer;
-   
+
+    // Определяем координаты для начала диалога
+    const int dialogX = 61; // Замените на нужные координаты
+    const int dialogY = 31; // Замените на нужные координаты
+
+
     void printMap() {
         clear();
         for (int y = chY * 25; y < 25 + (chY * 25); ++y) {
@@ -268,10 +270,14 @@ public:
                 else if (isDecoration(x - chX * 35, y - chY * 25, 1)) { cout << ".,"; }
                 else if (isDecoration(x - 1 - chX * 35, y - chY * 25, 1)) { cout << "\"\""; }
                 else if (isDecoration(x - 2 - chX * 35, y - chY * 25, 1)) { cout << ",."; }
+
+
+
                 // Пустое 
                 else {
                     cout << ". ";
                 }
+
             }
             cout << endl;
         }
@@ -300,6 +306,13 @@ public:
             }
         }
     }
+    void checkForDialog() {
+        // Проверяем, находится ли игрок в координатах для диалога
+        if (x == dialogX && y == dialogY) {
+            Flopa fDial;
+            fDial.Sell(); // Запускаем диалог
+        }
+    }
     void tick() {
         if (oldChY != chY || oldChX != chX) {
             clearChunk();
@@ -320,6 +333,7 @@ public:
             seed = rand();
             addSeedToChs(seed, chX, chY);
         }
+        checkForDialog(); // Проверка на диалог
     }
     void initMap() {
         while (true) {
@@ -482,13 +496,14 @@ auto chmonya{ []() {
 )" << endl;} };
 class chmoyaa {
 public:
-    void persona(){
+    void persona() {
         system("cls");
         chmonya();
         cout << "\n ________________________________________________________________";
         cout << "\n|                                                                |";
         cout << "\n| После того как я заселился на эту планету все проблемы ушли... |";
         cout << "\n|________________________________________________________________|";
+
     }
 
 
@@ -580,8 +595,10 @@ public:
             cout << "\n|                                                                |";
             cout << "\n|   Выход из диалога ...                                         |";
             cout << "\n|________________________________________________________________|";
+            break;
+
         }
 
     };
-    
+
 };
