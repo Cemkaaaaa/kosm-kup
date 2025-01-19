@@ -3,6 +3,7 @@
 #include "enemy.h"
 #include "player.h"
 #include <conio.h>
+#include <functional>
 using namespace std;
 enum arrow{
 	leftdown, leftup,rightup,rightdown
@@ -45,7 +46,7 @@ private:
 |                     |  |                  |    |                  |  |                                               |
 |                     |  |------------------|    |------------------|  |                                               |
 |---------------------|------------------------------------------------|-----------------------------------------------|)";
-	
+	bool cX = 0; bool cY = 0;
 public:
 	Fight() {};
 
@@ -53,10 +54,14 @@ public:
 	void fight() {
 		int x = 22; int y = 51;
 		int State = 0; 
+		function<void(Fight&)> fun;
+		fun = &Fight::coutInterface;
+
 		while (true)
 		{
 			
-			//upravleniye(&coutInterface);
+			State = upravleniye(fun);
+			//upravleniye(coutInterface);
 			
 
 			
@@ -119,40 +124,45 @@ public:
 		}
 		
 	}
-	int inline upravleniye( void (*Interface)()) {
-		Interface();
-		bool cX = 0; bool cY = 0;
-		if (cX && cY) { cout << "\033[27;51f>"; } //левый низ
-		else if (cX && !cY) { cout << "\033[22;51f>"; } // 
-		else if (!cX && cY) { cout << "\033[27;27f>"; }
-		else { cout << "\033[22;27f>"; }
-		switch (_getch())
-		{
-		case 77/*->*/:
-			
-			cX = true;
-			
-			break;
-		case 75/*<-*/:
-			
-			cX = false;
-			break;
-		case 72/*/\*/:
-			cY = true;
-			
-			break;
-		case 80/*\/*/:
-			cY = false;
-			
-			break;
-		case '\n':
-			if (cX && cY) { return arrow::rightup; } //левый низ
-			else if (cX && !cY) { return arrow::rightdown; } // 
-			else if (!cX && cY) { return arrow::leftup; }
-			else { return arrow::leftdown; }
-		default:
-			break;
+	int inline upravleniye(function<void(Fight&)> Interface) {
+		while (true) {
+			Interface(*this);
+			if (cX && cY) { cout << "\033[27;51f>"; } //левый низ
+			else if (cX && !cY) { cout << "\033[22;51f>"; } // 
+			else if (!cX && cY) { cout << "\033[27;27f>"; }
+			else { cout << "\033[22;27f>"; }
+
+
+			switch (_getch())
+			{
+			case 77/*->*/:
+
+				cX = true;
+
+				break;
+			case 75/*<-*/:
+
+				cX = false;
+				break;
+			case 72/*/\*/:
+				cY = false;
+
+				break;
+			case 80/*\/*/:
+				cY = true;
+
+				break;
+			case '\n':
+				if (cX && cY) { return arrow::rightdown; } //левый низ
+				else if (cX && !cY) { return arrow::rightup; } // 
+				else if (!cX && cY) { return arrow::leftdown; }
+				else { return arrow::leftup; }
+				break;
+			default:
+				break;
+			}
 		}
+		
 		
 	}
 };

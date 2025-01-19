@@ -54,6 +54,7 @@ public:
 		return DeltaDamage;
 	}
 	/*Вектор*/
+	vector<Ability> getUsesAbility() { return this->UsesAbilty; }
 	vector<Ability> getAbilities() { return ability; }
 	
 };

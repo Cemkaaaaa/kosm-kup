@@ -132,6 +132,8 @@ public:
 class Map : public Player, public Chunks, public Obstacles, public Decorations {
     vector<Chunks> chunks;
 public:
+    string buffer;
+   
     void printMap() {
         clear();
         for (int y = chY * 25; y < 25 + (chY * 25); ++y) {
