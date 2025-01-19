@@ -660,9 +660,3 @@ public:
 
 };
 
-
-
-void game() {
-    Map map;
-    map.initMap();
-}
